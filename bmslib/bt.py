@@ -83,21 +83,8 @@ class BtBms:
         if not _uses_pin and psk:
             self.logger.warning('%s usually does not use a pairing PIN', type(self).__name__)
 
-        if address.startswith('test_'):
-            from bmslib.models.dummy import BleakDummyClient
-            self.client = BleakDummyClient(address, disconnected_callback=self._on_disconnect)
-            self._adapter = "fake"
         else:
             kwargs = {}
-            if psk:
-                try:
-                    import bleak.backends.bluezdbus.agent
-                except ImportError:
-                    self.logger.warning(
-                        "Installed bleak version %s has no pairing agent, pairing with a pin will likely fail! "
-                        # "Disable `install_newer_bleak` option or run `pip3 -r requirements.txt`"
-                        , bleak_version())
-
             self._adapter = adapter
 
             if address == 'serial':
