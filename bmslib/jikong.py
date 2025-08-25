@@ -329,24 +329,6 @@ async def main():
             except KeyboardInterrupt:
                 break
 
-            #b = not s.switches.get("charge")
-#
-            #await bms.set_switch("charge", b)
-#
-            #s = await bms.fetch()
-            #print(s.switches)
-#
-            #if s.switches.get("charge") != b:
-            #    print('error', s)
-            
-            # new_state = not s.switches['charge']
-            # await bms.set_switch('charge', new_state)
-            # await bms._q(cmd=0x96, resp= 0x01)
-            # print('set charge', new_state)
-            # await asyncio.sleep(4)
-            # s = await bms.fetch(wait=True)
-            # print(s)
-
 
 class JKBt_24s(JKBt):
     def __init__(self, *args, **kwargs) -> None:
