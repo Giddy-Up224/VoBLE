@@ -87,20 +87,15 @@ class BtBms:
             kwargs = {}
             self._adapter = adapter
 
-            if address == 'serial':
-                from bmslib.wired import SerialBleakClientWrapper
-                assert adapter, "You need to specify a serial device (adapter)"
-                self.client = SerialBleakClientWrapper(adapter)
-            else:
-                if adapter:  # hci0, hci1 (BT adapter hardware)
-                    self.logger.info('Using adapter %s', adapter)
-                    kwargs['adapter'] = adapter
+            if adapter:  # hci0, hci1 (BT adapter hardware)
+                self.logger.info('Using adapter %s', adapter)
+                kwargs['adapter'] = adapter
 
-                self.client = BleakClient(address,
-                                          handle_pairing=bool(psk),
-                                          disconnected_callback=self._on_disconnect,
-                                          **kwargs
-                                          )
+            self.client = BleakClient(address,
+                                        handle_pairing=bool(psk),
+                                        disconnected_callback=self._on_disconnect,
+                                        **kwargs
+                                        )
 
             self._in_disconnect = False
 
