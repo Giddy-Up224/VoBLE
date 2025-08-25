@@ -9,7 +9,7 @@ async def main():
             try:
                 s = await bms.fetch(wait=True)
                 # print(s, 'I_bal=', s.balance_current, await bms.fetch_voltages())
-                print(f"SOC: {s.soc} Current: {s.current} Voltage: {s.voltage} Temp: {s.temperatures} I_bal: {s.balance_current}")
+                print(f"SOC: {repr(s.soc)} Current: {s.current:.3f} Voltage: {s.voltage:.3f} Temp: {s.temperatures} I_bal: {s.balance_current} Voltages: {await bms.fetch_voltages()}")
             except KeyboardInterrupt:
                 break
 
