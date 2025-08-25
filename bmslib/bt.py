@@ -93,7 +93,7 @@ class BtBms:
                 try:
                     import bleak.backends.bluezdbus.agent
                 except ImportError:
-                    self.logger.warn(
+                    self.logger.warning(
                         "Installed bleak version %s has no pairing agent, pairing with a pin will likely fail! "
                         # "Disable `install_newer_bleak` option or run `pip3 -r requirements.txt`"
                         , bleak_version())
