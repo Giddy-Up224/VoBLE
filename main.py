@@ -1,7 +1,7 @@
 from bmslib.jikong import JKBt
 
 async def main():
-    mac_address = 'C8:47:80:23:4F:95'  # caravan (intel)
+    mac_address = 'C8:47:80:23:4F:95'  # Replace with your BMS MAC address
 
     bms = JKBt(mac_address, name='jk', verbose_log=False)
     async with bms:
