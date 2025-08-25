@@ -7,7 +7,7 @@ import time
 import uuid
 from bleak import BleakClient, BleakScanner
 from bleak.backends.characteristic import BleakGATTCharacteristic
-from typing import Callable, List, Union, Iterable
+from typing import Callable, List, Union
 
 from . import FuturesPool
 from .bms import BmsSample, DeviceInfo
