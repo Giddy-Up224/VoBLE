@@ -84,34 +84,34 @@ class BmsSample:
         if switches:
             assert all(map(lambda x: isinstance(x, bool), switches.values())), "non-bool switches values %s" % switches
 
-    @property
-    def power(self):
-        """
-        :return: Power (P=U*I) in W
-        """
-        return (self.voltage * self.current) if math.isnan(self._power) else self._power
-
-    def values(self):
-        return {**self.__dict__, "power": self.power}
-
-    def __str__(self):
-        # noinspection PyStringFormat
-        s = 'BmsSampl('
-        if not math.isnan(self.soc):
-            s += '%.1f%%,' % self.soc
-        vals = self.values()
-        s += 'U=%(voltage).1fV,I=%(current).2fA,P=%(power).0fW,' % vals
-        if not math.isnan(self.charge):
-            s += 'Q=%(charge).0f/%(capacity).0fAh,mos=%(mos_temperature).0f°C' % vals
-        return s.rstrip(',') + ')'
-
-    def invert_current(self):
-        return self.multiply_current(-1)
-
-    def multiply_current(self, x):
-        res = copy(self)
-        if res.current != 0:  # prevent -0 values
-            res.current *= x
-        if not math.isnan(res._power) and res._power != 0:
-            res._power *= x
-        return res
+    #@property
+    #def power(self):
+    #    """
+    #    :return: Power (P=U*I) in W
+    #    """
+    #    return (self.voltage * self.current) if math.isnan(self._power) else self._power
+#
+    #def values(self):
+    #    return {**self.__dict__, "power": self.power}
+#
+    #def __str__(self):
+    #    # noinspection PyStringFormat
+    #    s = 'BmsSampl('
+    #    if not math.isnan(self.soc):
+    #        s += '%.1f%%,' % self.soc
+    #    vals = self.values()
+    #    s += 'U=%(voltage).1fV,I=%(current).2fA,P=%(power).0fW,' % vals
+    #    if not math.isnan(self.charge):
+    #        s += 'Q=%(charge).0f/%(capacity).0fAh,mos=%(mos_temperature).0f°C' % vals
+    #    return s.rstrip(',') + ')'
+#
+    #def invert_current(self):
+    #    return self.multiply_current(-1)
+#
+    #def multiply_current(self, x):
+    #    res = copy(self)
+    #    if res.current != 0:  # prevent -0 values
+    #        res.current *= x
+    #    if not math.isnan(res._power) and res._power != 0:
+    #        res._power *= x
+    #    return res
