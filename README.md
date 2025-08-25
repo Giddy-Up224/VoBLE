@@ -1,4 +1,4 @@
-# voBLE
+# VoBLE
 
 ## 🚧 Work in Progress
 
