@@ -86,7 +86,6 @@ class BtBms:
         else:
             kwargs = {}
             self._adapter = adapter
-
             if adapter:  # hci0, hci1 (BT adapter hardware)
                 self.logger.info('Using adapter %s', adapter)
                 kwargs['adapter'] = adapter
@@ -209,11 +208,6 @@ class BtBms:
     @property
     def is_connected(self):
         return self.client.is_connected
-
-    @property
-    def is_virtual(self):
-        from bmslib.group import VirtualGroupBms
-        return isinstance(self, VirtualGroupBms)
 
     async def connect(self, timeout=20):
         """
