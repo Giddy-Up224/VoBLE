@@ -41,12 +41,18 @@ async def home_page():
     """
     with ui.row().classes('w-full'):
         with ui.tabs().classes('items-start') as tabs:
-            home_tab = ui.tab('Home')
+            home_tab = ui.tab('Home', icon='home')
+            settings_tab = ui.tab('Settings', icon='settings')
         with ui.tab_panels(tabs, value=home_tab).classes('w-full'):
             with ui.tab_panel(home_tab):
-                ui.button('Start BMS Monitoring', on_click=start_monitoring).classes('m-2')
-                ui.button('Stop BMS Monitoring', on_click=stop_monitoring).classes('m-2')
+                ui.label('Welcome to the VoBLE BMS Monitor!').classes('text-2xl m-4')
+                ui.label('Use the buttons in the Settings tab to start or stop monitoring the BMS.').classes('m-4')
+        with ui.tab_panels(tabs, value=settings_tab).classes('w-full'):
+            with ui.tab_panel(settings_tab):
+                with ui.row():
+                    ui.button(icon='play_arrow', on_click=start_monitoring).classes('m-2')
+                    ui.button(icon='stop', on_click=stop_monitoring).classes('m-2')
 
 
 
-ui.run(title='VoBLE', reload=True, host='0.0.0.0', port=4853, dark=True)
+ui.run(title='VoBLE', reload=True, host='0.0.0.0', port=4850, dark=True)
