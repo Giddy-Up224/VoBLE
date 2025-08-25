@@ -314,17 +314,13 @@ class JKBt(BtBms):
 async def main():
     # _jk_command(0x96)
 
-    # await bmslib.bt.bt_discovery(logger=get_logger())
-    #mac_address = 'F21958DF-E949-4D43-B12B-0020365C428A'  # caravan
-    # mac_address = '46A9A7A1-D6C6-59C5-52D0-79EC8C77F4D2'  # bat100ah
-    mac_address = 'C8:47:80:23:4F:95'  # caravan (intel)
+    mac_address = 'C8:47:80:23:4F:95'
 
     bms = JKBt(mac_address, name='jk', verbose_log=False)
     async with bms:
         while True:
             try:
                 s = await bms.fetch(wait=True)
-                # print(s, 'I_bal=', s.balance_current, await bms.fetch_voltages())
                 print(f"SOC: {s.soc} Current: {s.current} Voltage: {s.voltage} Temp: {s.temperatures} I_bal: {s.balance_current}")
             except KeyboardInterrupt:
                 break
