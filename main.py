@@ -61,14 +61,44 @@ async def home_page():
             with ui.tab_panel(home_tab):
                 ui.label('Welcome to the VoBLE BMS Monitor!').classes('text-2xl m-4')
                 ui.label('Use the buttons in the Settings tab to start or stop monitoring the BMS.').classes('m-4')
-                with ui.row():
+                with ui.column().classes('items-center w-[300px]'):
                     global soc
-                    
+
                     gauge_options = {
-                        'title': {'text': 'State of Charge (SOC)'},
-                        'chart': {'type': 'solidgauge'},
-                        'yAxis': {'min': 0.00, 'max': 100.00,},
-                        'series': [{'data': [soc]},]
+                        'title': {'text': ''},
+                        'chart': {'type': 'solidgauge', 'backgroundColor': 'transparent'},  # Makes chart background transparent
+                        'credits': {'enabled': False},  # Removes the highcharts.com watermark
+                        'pane': {
+                            'center': ['50%', '50%'],
+                            'size': '200px',
+                            'startAngle': -150,
+                            'endAngle': 150,
+                            'background': {
+                                'backgroundColor': '#333',
+                                'innerRadius': '60%',
+                                'outerRadius': '100%',
+                                'shape': 'arc'
+                            }
+                        },
+                        'yAxis': {'min': 0.00,
+                                  'max': 100.00,
+                                  'lineWidth': 0,
+                                  'minorTickLength': 0,
+                                  'tickLength': 0,
+                                  'labels': {'enabled': False},
+                        },
+                        'series': [{'data': [soc],
+                                    'dataLabels': {
+                                        'enabled': True,
+                                        'borderWidth': 0,
+                                        'backgroundColor': 'transparent',
+                                        'style': {
+                                            'fontSize': '32px',
+                                            'fontWeight': 'bold',
+                                            'color': '#FFF',
+                                            'textOutline': 'none'
+                                        }
+                                    }},]
                         }
                     
                     def update_gauge():
@@ -77,6 +107,7 @@ async def home_page():
                         soc_gauge.update()
 
                     ui.timer(1.0, update_gauge)
+                    ui.label('SOC').classes('text-xl font-bold mt-2 m-4') # TODO: add dynamic battery name to the SOC label
                     soc_gauge = ui.highchart(gauge_options, extras=['solid-gauge']).classes('w-full h-64')
         with ui.tab_panels(tabs, value=settings_tab).classes('w-full'):
             with ui.tab_panel(settings_tab):
