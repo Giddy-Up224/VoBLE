@@ -63,7 +63,8 @@ async def home_page():
                 ui.label('Use the buttons in the Settings tab to start or stop monitoring the BMS.').classes('m-4')
                 with ui.column().classes('items-center w-[300px]'):
                     global soc
-
+                    gauge_soc = 0
+                    
                     gauge_options = {
                         'title': {'text': ''},
                         'chart': {'type': 'solidgauge', 'backgroundColor': 'transparent'},  # Makes chart background transparent
@@ -87,7 +88,7 @@ async def home_page():
                                   'tickLength': 0,
                                   'labels': {'enabled': False},
                         },
-                        'series': [{'data': [soc],
+                        'series': [{'data': [gauge_soc],
                                     'dataLabels': {
                                         'enabled': True,
                                         'borderWidth': 0,
@@ -103,8 +104,12 @@ async def home_page():
                     
                     def update_gauge():
                         global soc
-                        gauge_options['series'][0]['data'][0] = soc
-                        soc_gauge.update()
+                        nonlocal gauge_soc
+                        # This prevents the guage from animating from 0 to current value every time the SOC is read.
+                        if gauge_soc != soc:
+                            gauge_soc = soc
+                            gauge_options['series'][0]['data'][0] = gauge_soc
+                            soc_gauge.update()
 
                     ui.timer(1.0, update_gauge)
                     ui.label('SOC').classes('text-xl font-bold mt-2 m-4') # TODO: add dynamic battery name to the SOC label
